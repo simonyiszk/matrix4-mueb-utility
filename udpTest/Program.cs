@@ -18,21 +18,46 @@ namespace udpTest
 
             if (args.Length == 0)
             {
-                Console.WriteLine("Nem adtal meg IP-cimet, kerlek probald ujra.");
+                Console.WriteLine("Nem adtal meg IP-cimet, kerlek probald ujra!");
             }
             else {
-                IPAddress ipAddress;
-                /**
-                 * TryParse tries to parse the IP address given as the first argument
-                 * the result is returned in the second argument
-                 */
+                IPEndPoint endPointToSend;
 
-                if (IPAddress.TryParse(args[0], out ipAddress)) {
-                    IPEndPoint endPointToSend= CreateIPEndPointFromString(args[0]);
-                    udpClient.Send(udpDataToSend, 10, endPointToSend);
+            
+                if (args[0].Contains(':')) {
+                    endPointToSend = CreateIPEndPointFromString(args[0]);
+                    int receivedDataSize = 0;
+                    byte[] udpDataReceived = new byte[20];
+
+                    if (endPointToSend != null)
+                    {
+                        try
+                        {   /*
+                            TODO: 
+                            SocketException lekezelese
+                            IP address validity check
+                            */
+                            udpClient.Send(udpDataToSend, 10, endPointToSend);
+                            Console.WriteLine("Datagram elkuldve!");
+                            while (receivedDataSize == 0)
+                            {
+                                udpDataReceived = udpClient.Receive(ref endPointToSend);
+                                receivedDataSize = udpDataReceived.Length;
+                                Console.WriteLine("Erkezett adat!");
+                                Console.WriteLine("Tartalma: " + System.Text.Encoding.Default.GetString(udpDataReceived));
+                            }
+                        }
+                        catch (SocketException se) {
+                            Console.WriteLine(se.SocketErrorCode);
+                            Console.WriteLine(se.ErrorCode);
+                        }
+
+                    }
+                }                
+                else {
+                    Console.WriteLine("Ervenytelen IP cimet adtal meg!");
+                    Console.WriteLine("Kivant formatum: <IP-cim>:<port>"); 
                 }
-                else Console.WriteLine();
-                
             }
         }
 
@@ -44,23 +69,24 @@ namespace udpTest
             }
             else
             {
-                string[] endPointData = endPointIPAddress?.Split(':');
+                string[] endPointAddressParts = endPointIPAddress.Split(':');
 
                 //no port number is added
-                if (endPointData.Length < 2)
+                if (endPointAddressParts.Length < 2)
                 {
                     Console.WriteLine("Nem adtal meg port-szamot!");
                 }
 
                 //getting the IP address
                 IPAddress IPAddress;
-                if (!IPAddress.TryParse(endPointData[0], out IPAddress))
+                if (!IPAddress.TryParse(endPointAddressParts[0], out IPAddress))
                 {
                     Console.WriteLine("Hibas IP-cimet adtal meg!");
                 }
 
+                //getting the port number
                 int port;
-                if (!int.TryParse(endPointData[1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
+                if (!int.TryParse(endPointAddressParts[1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
                 {
                     Console.WriteLine("Portszam hiba!");
                 }
