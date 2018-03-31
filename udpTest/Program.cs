@@ -23,76 +23,56 @@ namespace udpTest
             else {
                 IPEndPoint endPointToSend;
 
-            
+                /* check if address is given in correct format */
                 if (args[0].Contains(':')) {
-                    endPointToSend = CreateIPEndPointFromString(args[0]);
-                    int receivedDataSize = 0;
-                    byte[] udpDataReceived = new byte[20];
+                    string[] argumentsSplitted = args[0].Split(':');
 
-                    if (endPointToSend != null)
+                    /* check if it is a valid address */
+                    Boolean isIPAddressValid = UDP.CheckIPAddressValidity(argumentsSplitted[0]);
+                    Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);               
+
+                    if (isIPAddressValid)
                     {
-                        try
-                        {   /*
-                            TODO: 
-                            SocketException lekezelese
-                            IP address validity check
-                            */
-                            udpClient.Send(udpDataToSend, 10, endPointToSend);
-                            Console.WriteLine("Datagram elkuldve!");
-                            while (receivedDataSize == 0)
-                            {
-                                udpDataReceived = udpClient.Receive(ref endPointToSend);
-                                receivedDataSize = udpDataReceived.Length;
-                                Console.WriteLine("Erkezett adat!");
-                                Console.WriteLine("Tartalma: " + System.Text.Encoding.Default.GetString(udpDataReceived));
-                            }
-                        }
-                        catch (SocketException se) {
-                            Console.WriteLine(se.SocketErrorCode);
-                            Console.WriteLine(se.ErrorCode);
-                        }
+                        if (isPortNumberValid)
+                        {
+                            endPointToSend = UDP.CreateIPEndPointFromString(args[0]);
+                            int receivedDataSize = 0;
+                            byte[] udpDataReceived = new byte[20];
 
+                            if (endPointToSend != null)
+                            {
+                                try
+                                {
+                                    /*
+                                     TODO 
+                                     SocketException kezelese normalisan
+                                      */                                      
+                                    udpClient.Send(udpDataToSend, 10, endPointToSend);
+                                    Console.WriteLine("Datagram elkuldve!");
+                                    while (receivedDataSize == 0)
+                                    {
+                                        udpDataReceived = udpClient.Receive(ref endPointToSend);
+                                        receivedDataSize = udpDataReceived.Length;
+                                        Console.WriteLine("Erkezett adat!");
+                                        Console.WriteLine("Tartalma: " + System.Text.Encoding.Default.GetString(udpDataReceived));
+                                    }
+                                }
+                                catch (SocketException se)
+                                {
+                                    Console.WriteLine("Nem elerheto socket.");
+                                    Console.WriteLine(se.SocketErrorCode);
+                                    Console.WriteLine(se.ErrorCode);
+                                }
+                            }
+                        } else Console.WriteLine("Ervenytelen port-szam!");
                     }
+                    else Console.WriteLine("Ervenytelen IP-cimet adtal meg.");
                 }                
                 else {
-                    Console.WriteLine("Ervenytelen IP cimet adtal meg!");
+                    Console.WriteLine("Ervenytelen cim-formatum!");
                     Console.WriteLine("Kivant formatum: <IP-cim>:<port>"); 
                 }
             }
-        }
-
-
-        public static IPEndPoint CreateIPEndPointFromString(String endPointIPAddress) {
-            if (endPointIPAddress == null)
-            {
-                throw new NullReferenceException();
-            }
-            else
-            {
-                string[] endPointAddressParts = endPointIPAddress.Split(':');
-
-                //no port number is added
-                if (endPointAddressParts.Length < 2)
-                {
-                    Console.WriteLine("Nem adtal meg port-szamot!");
-                }
-
-                //getting the IP address
-                IPAddress IPAddress;
-                if (!IPAddress.TryParse(endPointAddressParts[0], out IPAddress))
-                {
-                    Console.WriteLine("Hibas IP-cimet adtal meg!");
-                }
-
-                //getting the port number
-                int port;
-                if (!int.TryParse(endPointAddressParts[1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
-                {
-                    Console.WriteLine("Portszam hiba!");
-                }
-
-                return new IPEndPoint(IPAddress, port);
-            }
-        }
+        }        
     }
 }
