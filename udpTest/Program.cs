@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Globalization;
+
 
 namespace udpTest
 {
@@ -14,7 +12,7 @@ namespace udpTest
         static void Main(string[] args)
         {
             UdpClient udpClient = new UdpClient();
-            byte[] udpDataToSend= { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            byte[] udpDataToSend= new byte[4];
 
             if (args.Length == 0)
             {
@@ -29,44 +27,57 @@ namespace udpTest
 
                     /* check if it is a valid address */
                     Boolean isIPAddressValid = UDP.CheckIPAddressValidity(argumentsSplitted[0]);
-                    Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);               
+                    Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);                    
 
                     if (isIPAddressValid)
                     {
                         if (isPortNumberValid)
                         {
-                            endPointToSend = UDP.CreateIPEndPointFromString(args[0]);
-                            int receivedDataSize = 0;
-                            byte[] udpDataReceived = new byte[20];
-
-                            if (endPointToSend != null)
+                            if (args.Length == 2)
                             {
-                                try
+                                Boolean isCommandValid = UDP.CheckCommandValidity(args[1]);
+                                if (isCommandValid)
                                 {
-                                    /*
-                                     TODO 
-                                     SocketException kezelese normalisan
-                                      */                                      
-                                    udpClient.Send(udpDataToSend, 10, endPointToSend);
-                                    Console.WriteLine("Datagram elkuldve!");
-                                    while (receivedDataSize == 0)
+                                    udpDataToSend[0] = (byte)'S';
+                                    udpDataToSend[1] = (byte)'E';
+                                    udpDataToSend[2] = (byte)'M';
+                                    udpDataToSend[3] = UDP.commandAsByte(args[1]);
+
+                                    endPointToSend = UDP.CreateIPEndPointFromString(args[0]);
+                                    int receivedDataSize = 0;
+                                    byte[] udpDataReceived = new byte[20];
+
+                                    if (endPointToSend != null)
                                     {
-                                        udpDataReceived = udpClient.Receive(ref endPointToSend);
-                                        receivedDataSize = udpDataReceived.Length;
-                                        Console.WriteLine("Erkezett adat!");
-                                        Console.WriteLine("Tartalma: " + System.Text.Encoding.Default.GetString(udpDataReceived));
+                                        try
+                                        {
+                                            /*
+                                             TODO 
+                                             SocketException kezelese normalisan
+                                              */
+                                            udpClient.Send(udpDataToSend, 4, endPointToSend);
+                                            Console.WriteLine("Datagram elkuldve!");
+                                            while (receivedDataSize == 0)
+                                            {
+                                                udpDataReceived = udpClient.Receive(ref endPointToSend);
+
+                                                receivedDataSize = udpDataReceived.Length;
+                                                Console.WriteLine("Erkezett adat!");
+                                                Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
+                                            }
+                                        }
+                                        catch (SocketException se)
+                                        {
+                                            Console.WriteLine("Nem elerheto socket.");
+                                            Console.WriteLine(se.SocketErrorCode);
+                                            Console.WriteLine(se.ErrorCode);
+                                        }
                                     }
                                 }
-                                catch (SocketException se)
-                                {
-                                    Console.WriteLine("Nem elerheto socket.");
-                                    Console.WriteLine(se.SocketErrorCode);
-                                    Console.WriteLine(se.ErrorCode);
-                                }
-                            }
+                                else Console.WriteLine("Ervenytelen parancs!");
+                            } else Console.WriteLine("Nem adtal meg parancsot!");
                         } else Console.WriteLine("Ervenytelen port-szam!");
-                    }
-                    else Console.WriteLine("Ervenytelen IP-cimet adtal meg.");
+                    } else Console.WriteLine("Ervenytelen IP-cimet adtal meg!");
                 }                
                 else {
                     Console.WriteLine("Ervenytelen cim-formatum!");
