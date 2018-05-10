@@ -20,9 +20,11 @@ namespace udpTest
             }
             else {
                 IPEndPoint endPointToSend;
-
+                if (args[0].Equals("--help") || args[0].Equals("-h")) {
+                    PrintHelp();
+                }
                 /* check if address is given in correct format */
-                if (args[0].Contains(':')) {
+                else if (args[0].Contains(':')) {
                     string[] argumentsSplitted = args[0].Split(':');
 
                     /* check if it is a valid address */
@@ -52,9 +54,9 @@ namespace udpTest
                                         try
                                         {
                                             /*
-                                             TODO 
-                                             SocketException kezelese normalisan
-                                              */
+                                                TODO 
+                                                SocketException kezelese normalisan
+                                                */
                                             udpClient.Send(udpDataToSend, 4, endPointToSend);
                                             Console.WriteLine("Datagram elkuldve!");
                                             while (receivedDataSize == 0)
@@ -72,9 +74,11 @@ namespace udpTest
                                             Console.WriteLine(se.SocketErrorCode);
                                             Console.WriteLine(se.ErrorCode);
                                         }
-                                    }
+                                    }                                    
                                 }
-                                else Console.WriteLine("Ervenytelen parancs!");
+                                else {
+                                    Console.WriteLine("Ervenytelen parancs!");                                    
+                                }
                             } else Console.WriteLine("Nem adtal meg parancsot!");
                         } else Console.WriteLine("Ervenytelen port-szam!");
                     } else Console.WriteLine("Ervenytelen IP-cimet adtal meg!");
@@ -84,6 +88,22 @@ namespace udpTest
                     Console.WriteLine("Kivant formatum: <IP-cim>:<port>"); 
                 }
             }
-        }        
+        }
+
+        /* Prints help for the program */
+        public static void PrintHelp()
+        {
+            Console.WriteLine("Matrix 4 tesztelo program");
+            Console.WriteLine("Hasznalhato parancsok: 12v-off, 12v-on, reboot, get-status, start-animation, stop-animation");
+            Console.WriteLine("12v-on         : MUEB bekapcsolasa");
+            Console.WriteLine("12v-off        : MUEB kikapcsolasa");
+            Console.WriteLine("reboot         : MUEB ujrainditasa");
+            Console.WriteLine("get-status     : MUEB statuszanak lekerdezese");
+            Console.WriteLine("start-animation: animacio inditasa");
+            Console.WriteLine("stop-animation : animacio megallitasa");
+
+        }
     }
 }
+
+

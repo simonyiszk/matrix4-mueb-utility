@@ -10,7 +10,7 @@ namespace udpTest
     class UDP
     {
         /*
-         Checks if an address is a valid IP address.
+         * Checks if an address is a valid IP address.
          */
         public static Boolean CheckIPAddressValidity(String addressToCheck)
         {
@@ -36,7 +36,7 @@ namespace udpTest
         }
 
         /*
-         Checks if a number can be a valid IP port number.
+         * Checks if a number can be a valid IP port number.
          */
         public static Boolean CheckPortNumberValidity(String portNumberToCheck) {
             Int32 PortNumber;
@@ -84,7 +84,9 @@ namespace udpTest
             }
         }
 
-        /* Checks if a given command is one of the valid commands */
+        /* 
+         * Checks if a given command is one of the valid commands 
+         */
         public static Boolean CheckCommandValidity(String commandToCheck) {
             if (commandToCheck.Equals("12V-on") || commandToCheck.Equals("12V-off") ||
                 commandToCheck.Equals("reboot") || commandToCheck.Equals("get-status") ||
@@ -94,15 +96,17 @@ namespace udpTest
             return false;
         }
 
-        /**/
+        /* 
+         * Returns the byte value representing a certain command 
+         */
         public static byte commandAsByte(string commandToCast) {
             byte commandCode= 0;
 
             switch (commandToCast) {
-                case "12V-on":
+                case "12V-off":
                     commandCode = 0;
                     break;
-                case "12V-off":
+                case "12V-on":
                     commandCode = 1;
                     break;
                 case "reboot":
