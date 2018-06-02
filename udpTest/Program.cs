@@ -28,7 +28,7 @@ namespace udpTest
                     string[] argumentsSplitted = args[0].Split(':');
 
                     /* check if it is a valid address */
-                    Boolean isIPAddressValid = UDP.CheckIPAddressValidity(argumentsSplitted[0]);
+                    Boolean isIPAddressValid  = UDP.CheckIPAddressValidity(argumentsSplitted[0]);
                     Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);                    
 
                     if (isIPAddressValid)
@@ -37,13 +37,13 @@ namespace udpTest
                         {
                             if (args.Length == 2)
                             {
-                                Boolean isCommandValid = UDP.CheckCommandValidity(args[1]);
+                                Boolean isCommandValid = Command.CheckCommandValidity(args[1]);
                                 if (isCommandValid)
                                 {
                                     udpDataToSend[0] = (byte)'S';
                                     udpDataToSend[1] = (byte)'E';
                                     udpDataToSend[2] = (byte)'M';
-                                    udpDataToSend[3] = UDP.commandAsByte(args[1]);
+                                    udpDataToSend[3] = Command.CommandAsByte(args[1]);
 
                                     endPointToSend = UDP.CreateIPEndPointFromString(args[0]);
                                     int receivedDataSize = 0;
@@ -94,14 +94,21 @@ namespace udpTest
         public static void PrintHelp()
         {
             Console.WriteLine("Matrix 4 tesztelo program");
-            Console.WriteLine("Hasznalhato parancsok: 12v-off, 12v-on, reboot, get-status, start-animation, stop-animation");
-            Console.WriteLine("12v-on         : MUEB bekapcsolasa");
-            Console.WriteLine("12v-off        : MUEB kikapcsolasa");
-            Console.WriteLine("reboot         : MUEB ujrainditasa");
-            Console.WriteLine("get-status     : MUEB statuszanak lekerdezese");
-            Console.WriteLine("start-animation: animacio inditasa");
-            Console.WriteLine("stop-animation : animacio megallitasa");
+            Console.WriteLine("Hasznalhato parancsok: ");
 
+            int longestCommand= Command.commands[0].Item1.Length;
+            for (int i = 1; i < Command.commands.Length; i++)
+            {
+                if (Command.commands[i].Item1.Length > longestCommand) {
+                    longestCommand= Command.commands[i].Item1.Length;
+                }
+            }
+
+
+            for (int i = 0; i < Command.commands.Length; i++) {
+                Console.WriteLine(
+                    String.Format("{0,-"+longestCommand+"}: {1}", Command.commands[i].Item1, Command.commands[i].Item3));
+            }
         }
     }
 }
