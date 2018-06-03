@@ -3,7 +3,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-
+using System.Timers;
+using System.Diagnostics;
 
 namespace udpTest
 {
@@ -13,6 +14,7 @@ namespace udpTest
         {
             UdpClient udpClient = new UdpClient();
             byte[] udpDataToSend= new byte[4];
+            Stopwatch stopWatch= new Stopwatch();
 
             if (args.Length == 0)
             {
@@ -43,7 +45,7 @@ namespace udpTest
                                     udpDataToSend[0] = (byte)'S';
                                     udpDataToSend[1] = (byte)'E';
                                     udpDataToSend[2] = (byte)'M';
-                                    udpDataToSend[3] = Command.CommandAsByte(args[1]);
+                                    udpDataToSend[3] = Command.CommandToByte(args[1]);
 
                                     endPointToSend = UDP.CreateIPEndPointFromString(args[0]);
                                     int receivedDataSize = 0;
@@ -59,14 +61,19 @@ namespace udpTest
                                                 */
                                             udpClient.Send(udpDataToSend, 4, endPointToSend);
                                             Console.WriteLine("Datagram elkuldve!");
+
+                                            stopWatch.Start();
                                             while (receivedDataSize == 0)
                                             {
                                                 udpDataReceived = udpClient.Receive(ref endPointToSend);
 
                                                 receivedDataSize = udpDataReceived.Length;
-                                                Console.WriteLine("Erkezett adat!");
-                                                Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
                                             }
+                                            stopWatch.Stop();
+
+                                            Console.WriteLine("Erkezett adat!");
+                                            Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
+                                            Console.WriteLine("Csomagküldés ideje: "+stopWatch.ElapsedMilliseconds+" ms");
                                         }
                                         catch (SocketException se)
                                         {
@@ -104,10 +111,13 @@ namespace udpTest
                 }
             }
 
-
             for (int i = 0; i < Command.commands.Length; i++) {
                 Console.WriteLine(
-                    String.Format("{0,-"+longestCommand+"}: {1}", Command.commands[i].Item1, Command.commands[i].Item3));
+                    String.Format(
+                        "{0,-"+longestCommand+"}: {1}", 
+                        Command.commands[i].Item1, 
+                        Command.commands[i].Item3)
+                );
             }
         }
     }

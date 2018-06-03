@@ -8,28 +8,37 @@ namespace udpTest
 {
     public class Command 
     {
-        public static Tuple<string, byte, string>[] commands= {
-            Tuple.Create<string, byte, string>("12V-off-left", 0, "12V kikapcsolasa a bal oldali tablan"),
-            Tuple.Create<string, byte, string>("12V-off-right", 1, "12V kikapcsolasa a jobb oldali tablan"),
-            Tuple.Create<string, byte, string>("reset-left-panel", 2, "bal oldali panel ujrainditasa"),
-            Tuple.Create<string, byte, string>("reset-right-panel", 3, "jobb oldali panel ujrainditasa"),
-            Tuple.Create<string, byte, string>("reboot", 4, "MUEB ujrainditasa"),
-            Tuple.Create<string, byte, string>("get-status", 5, "statusz lekerdezese"),
-            Tuple.Create<string, byte, string>("use-internal-animation", 10, "belso animacio hasznalata"),
-            Tuple.Create<string, byte, string>("use-external-animation", 20, "kulso animacio hasznalata"),
-            Tuple.Create<string, byte, string>("blank", 30, "tablak elsotetitese"),
-            Tuple.Create<string, byte, string>("delete-anim-network-buffer", 6, "buffer torlese")
+        /*
+            Array containing the list of all commands
+            First : command's name
+            Second: command's value
+            Third:  help to command
+            Forth:  does the command get reply?
+             */
+        public static Tuple<string, byte, string, Boolean>[] commands= {
+            Tuple.Create<string, byte, string, Boolean>("12V-off-left", 0, "12V kikapcsolasa a bal oldali tablan", false),
+            Tuple.Create<string, byte, string, Boolean>("12V-off-right", 1, "12V kikapcsolasa a jobb oldali tablan", false),
+            Tuple.Create<string, byte, string, Boolean>("reset-left-panel", 2, "bal oldali panel ujrainditasa", false),
+            Tuple.Create<string, byte, string, Boolean>("reset-right-panel", 3, "jobb oldali panel ujrainditasa", false),
+            Tuple.Create<string, byte, string, Boolean>("reboot", 4, "MUEB ujrainditasa", false),
+            Tuple.Create<string, byte, string, Boolean>("get-status", 5, "statusz lekerdezese", true),
+            Tuple.Create<string, byte, string, Boolean>("use-internal-animation", 10, "belso animacio hasznalata", false),
+            Tuple.Create<string, byte, string, Boolean>("use-external-animation", 20, "kulso animacio hasznalata", false),
+            Tuple.Create<string, byte, string, Boolean>("blank", 30, "tablak elsotetitese", false),
+            Tuple.Create<string, byte, string, Boolean>("delete-anim-network-buffer", 6, "halozati buffer torlese", false)
         };
 
         /* 
          * Returns the byte value representing a certain command 
          */
-        public static byte CommandAsByte(string commandToCast)
+        public static byte CommandToByte(string commandToCast)
         {
             byte commandCode = 0;
 
-            for (int i = 0; i < commands.Length; i++) {
-                if (commands[i].Item1.Equals(commandToCast)) {
+            for (int i = 0; i < commands.Length; i++)
+            {
+                if (commands[i].Item1.Equals(commandToCast))
+                {
                     commandCode = commands[i].Item2;
                 }
             }           

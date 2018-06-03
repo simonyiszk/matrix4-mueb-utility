@@ -67,7 +67,10 @@ namespace udpTest
             }
         }
 
-
+        /**
+            Creates an IPEndPoint from a given string containing the endpoint's address
+            @param
+             */
         public static IPEndPoint CreateIPEndPointFromString(String endPointIPAddress)
         {
             if (endPointIPAddress == null)
