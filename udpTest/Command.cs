@@ -25,7 +25,9 @@ namespace udpTest
             Tuple.Create<string, byte, string, Boolean>("use-internal-animation", 10, "belso animacio hasznalata", false),
             Tuple.Create<string, byte, string, Boolean>("use-external-animation", 20, "kulso animacio hasznalata", false),
             Tuple.Create<string, byte, string, Boolean>("blank", 30, "tablak elsotetitese", false),
-            Tuple.Create<string, byte, string, Boolean>("delete-anim-network-buffer", 6, "halozati buffer torlese", false)
+            Tuple.Create<string, byte, string, Boolean>("delete-anim-network-buffer", 6, "halozati buffer torlese", false),
+            Tuple.Create<string, byte, string, Boolean>("ping", 0x30, "MUEB fociklus-idejenek meghatarozasa", true)
+
         };
 
         /* 
