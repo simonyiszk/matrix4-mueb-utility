@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.Timers;
 using System.Diagnostics;
 
 namespace udpTest
@@ -15,6 +14,8 @@ namespace udpTest
             UdpClient udpClient = new UdpClient();
             byte[] udpDataToSend= new byte[4];
             Stopwatch stopWatch= new Stopwatch();
+            long nanosecondsElapsed;
+            long millisecondsElapsed;
 
             if (args.Length == 0)
             {
@@ -70,10 +71,18 @@ namespace udpTest
                                                 receivedDataSize = udpDataReceived.Length;
                                             }
                                             stopWatch.Stop();
+                                            nanosecondsElapsed = stopWatch.ElapsedTicks / Stopwatch.Frequency * 1000000000;
+                                            millisecondsElapsed = stopWatch.ElapsedMilliseconds;
 
                                             Console.WriteLine("Erkezett adat!");
                                             Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                            Console.WriteLine("Csomagküldés ideje: "+stopWatch.ElapsedMilliseconds+" ms");
+                                            if (millisecondsElapsed == 0)
+                                            {
+                                                Console.WriteLine("Csomagkuldes ideje: " + nanosecondsElapsed + " ns");
+                                            }
+                                            else {
+                                                Console.WriteLine("Csomagkuldes ideje: " + millisecondsElapsed + " ms");
+                                            }
                                         }
                                         catch (SocketException se)
                                         {
@@ -122,5 +131,3 @@ namespace udpTest
         }
     }
 }
-
-

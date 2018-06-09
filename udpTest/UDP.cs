@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 
 namespace udpTest
@@ -14,25 +10,40 @@ namespace udpTest
          */
         public static Boolean CheckIPAddressValidity(String addressToCheck)
         {
-            string[] IPstring = addressToCheck.Split('.');
+            string[] IPparts = addressToCheck.Split('.');
 
             int temp;
             Boolean isValid = true;
 
-            for (int i = 0; i < 4; i++)
+            if (addressToCheck == null)
             {
-                if (Int32.TryParse(IPstring[i], out temp))
+                throw new NullReferenceException();
+            }
+            else
+            {
+                if (IPparts.Length == 4)
                 {
-                    if (temp > 255 || temp < 0)
+                    for (int i = 0; i < 4; i++)
                     {
-                        return false;
+                        if (Int32.TryParse(IPparts[i], out temp))
+                        {
+                            if (temp > 255 || temp < 0)
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            isValid = false;
+                        }
                     }
                 }
                 else
                 {
-                    return false;
+                    isValid = false;
                 }
             }
+
             return isValid;
         }
 
@@ -43,17 +54,28 @@ namespace udpTest
         {
             Int32 PortNumber;
 
-            if (portNumberToCheck.Length < 6)
+            if (portNumberToCheck == null)
             {
-                if (Int32.TryParse(portNumberToCheck, out PortNumber))
+                throw new NullReferenceException();                
+            }
+            else {
+                //if port number is not too long
+                if (portNumberToCheck.Length < 6)
                 {
-                    if (PortNumber < 0 || PortNumber > 65535)
+                    if (Int32.TryParse(portNumberToCheck, out PortNumber))
                     {
-                        return false;
+                        if (PortNumber < 0 || PortNumber > 65535)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
                     }
                     else
                     {
-                        return true;
+                        return false;
                     }
                 }
                 else
@@ -61,16 +83,11 @@ namespace udpTest
                     return false;
                 }
             }
-            else
-            {
-                return false;
-            }
         }
 
-        /**
-            Creates an IPEndPoint from a given string containing the endpoint's address
-            @param
-             */
+        /*
+         * Creates an IPEndPoint from a given string containing the endpoint's address           
+         */
         public static IPEndPoint CreateIPEndPointFromString(String endPointIPAddress)
         {
             if (endPointIPAddress == null)
