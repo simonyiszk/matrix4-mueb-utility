@@ -32,7 +32,7 @@ namespace udpTest
 
                     /* check if it is a valid address */
                     Boolean isIPAddressValid  = UDP.CheckIPAddressValidity(argumentsSplitted[0]);
-                    Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);                    
+                    Boolean isPortNumberValid = UDP.CheckPortNumberValidity(argumentsSplitted[1]);
 
                     if (isIPAddressValid)
                     {
@@ -57,9 +57,9 @@ namespace udpTest
                                         try
                                         {
                                             /*
-                                                TODO 
-                                                SocketException kezelese normalisan
-                                                */
+                                             * TODO 
+                                             * SocketException kezelese normalisan
+                                             */
                                             udpClient.Send(udpDataToSend, 4, endPointToSend);
                                             Console.WriteLine("Datagram elkuldve!");
 
@@ -76,28 +76,37 @@ namespace udpTest
 
                                             Console.WriteLine("Erkezett adat!");
                                             Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                            if (millisecondsElapsed == 0)
+                                            if (millisecondsElapsed == 0 && nanosecondsElapsed != 0)
                                             {
                                                 Console.WriteLine("Csomagkuldes ideje: " + nanosecondsElapsed + " ns");
                                             }
-                                            else {
+                                            else
+                                            {
                                                 Console.WriteLine("Csomagkuldes ideje: " + millisecondsElapsed + " ms");
                                             }
                                         }
                                         catch (SocketException se)
                                         {
                                             Console.WriteLine("Nem elerheto socket.");
-                                            Console.WriteLine(se.SocketErrorCode);
-                                            Console.WriteLine(se.ErrorCode);
+                                            Console.WriteLine("SocketErrorCode: "+se.SocketErrorCode);
+                                            Console.WriteLine("ErrorCode: "+se.ErrorCode);
                                         }
-                                    }                                    
+                                    }
                                 }
-                                else {
-                                    Console.WriteLine("Ervenytelen parancs!");                                    
+                                else
+                                {
+                                    Console.WriteLine("Ervenytelen parancs!");
                                 }
-                            } else Console.WriteLine("Nem adtal meg parancsot!");
-                        } else Console.WriteLine("Ervenytelen port-szam!");
-                    } else Console.WriteLine("Ervenytelen IP-cimet adtal meg!");
+                            }
+                            else Console.WriteLine("Nem adtal meg parancsot!");
+                        }
+                        else {
+                            Console.WriteLine("Ervenytelen port-szam!");
+                        }
+                    }
+                    else {
+                        Console.WriteLine("Ervenytelen IP-cimet adtal meg!");
+                    }
                 }                
                 else {
                     Console.WriteLine("Ervenytelen cim-formatum!");
