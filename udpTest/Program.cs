@@ -76,14 +76,14 @@ namespace udpTest
 
                                             Console.WriteLine("Erkezett adat!");
                                             Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                            if (millisecondsElapsed == 0 && nanosecondsElapsed != 0)
-                                            {
+                                            //if (millisecondsElapsed == 0)
+                                            //{
                                                 Console.WriteLine("Csomagkuldes ideje: " + nanosecondsElapsed + " ns");
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("Csomagkuldes ideje: " + millisecondsElapsed + " ms");
-                                            }
+                                            //}
+                                            //else
+                                            //{
+                                            //    Console.WriteLine("Csomagkuldes ideje: " + millisecondsElapsed + " ms");
+                                            //}
                                         }
                                         catch (SocketException se)
                                         {
