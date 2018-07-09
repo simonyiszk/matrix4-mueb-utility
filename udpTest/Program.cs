@@ -14,8 +14,8 @@ namespace udpTest
             UdpClient udpClient = new UdpClient();
             byte[] udpDataToSend= new byte[4];
             Stopwatch stopWatch= new Stopwatch();
-            long nanosecondsElapsed;
-            long millisecondsElapsed;
+            double nanosecondsElapsed;
+            double millisecondsElapsed;
 
             if (args.Length == 0)
             {
@@ -71,19 +71,16 @@ namespace udpTest
                                                 receivedDataSize = udpDataReceived.Length;
                                             }
                                             stopWatch.Stop();
-                                            nanosecondsElapsed = stopWatch.ElapsedTicks / Stopwatch.Frequency * 1000000000;
-                                            millisecondsElapsed = stopWatch.ElapsedMilliseconds;
+                                          //nanosecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000000000;
+                                          //millisecondsElapsed = stopWatch.ElapsedMilliseconds;
+                                            millisecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000;
+
 
                                             Console.WriteLine("Erkezett adat!");
                                             Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                            //if (millisecondsElapsed == 0)
-                                            //{
-                                                Console.WriteLine("Csomagkuldes ideje: " + nanosecondsElapsed + " ns");
-                                            //}
-                                            //else
-                                            //{
-                                            //    Console.WriteLine("Csomagkuldes ideje: " + millisecondsElapsed + " ms");
-                                            //}
+                                          //Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", nanosecondsElapsed) + " ns");
+                                            Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", millisecondsElapsed) + " ms");
+
                                         }
                                         catch (SocketException se)
                                         {
