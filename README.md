@@ -1,4 +1,4 @@
-# matrix4-test-PC-sw
+# matrix4-mueb-utility
 Mátrix 4 MUEB tesztelő program.
 
 Parancssorból indítható alkalmazás. 
