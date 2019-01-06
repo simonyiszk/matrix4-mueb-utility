@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "udpTest", "udpTest\udpTest.csproj", "{3C1979EB-892B-4593-A3A0-F4A9FA84D3AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "matrix4MuebUtility", "matrix4MuebUtility\matrix4MuebUtility.csproj", "{3C1979EB-892B-4593-A3A0-F4A9FA84D3AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

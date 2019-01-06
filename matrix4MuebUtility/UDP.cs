@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace udpTest
+namespace matrix4MuebUtility
 {
     class UDP
     {

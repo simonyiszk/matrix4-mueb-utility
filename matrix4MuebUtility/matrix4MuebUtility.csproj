@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3C1979EB-892B-4593-A3A0-F4A9FA84D3AE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>udpTest</RootNamespace>
-    <AssemblyName>udpTest</AssemblyName>
+    <RootNamespace>matrix4MuebUtility</RootNamespace>
+    <AssemblyName>matrix4MuebUtility</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Diagnostics;
 
-namespace udpTest
+namespace matrix4MuebUtility
 {
     class Program
     {
@@ -115,7 +115,7 @@ namespace udpTest
         /* Prints help for the program */
         public static void PrintHelp()
         {
-            Console.WriteLine("Matrix 4 tesztelo program");
+            Console.WriteLine("Matrix 4 utility program");
             Console.WriteLine("Hasznalhato parancsok: ");
 
             int longestCommand= Command.commands[0].Item1.Length;

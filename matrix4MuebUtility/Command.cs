@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace udpTest
+namespace matrix4MuebUtility
 {
     public class Command 
     {
@@ -18,6 +18,7 @@ namespace udpTest
             Tuple.Create<string, byte, string, Boolean>("reset-right-panel", 3, "jobb oldali panel ujrainditasa", false),
             Tuple.Create<string, byte, string, Boolean>("reboot", 4, "MUEB ujrainditasa", false),
             Tuple.Create<string, byte, string, Boolean>("get-status", 5, "statusz lekerdezese", true),
+            Tuple.Create<string, byte, string, Boolean>("get-mac", 7, "MAC-cim lekerdezese", true),
             Tuple.Create<string, byte, string, Boolean>("use-internal-animation", 10, "belso animacio hasznalata", false),
             Tuple.Create<string, byte, string, Boolean>("use-external-animation", 20, "kulso animacio hasznalata", false),
             Tuple.Create<string, byte, string, Boolean>("blank", 30, "tablak elsotetitese", false),
