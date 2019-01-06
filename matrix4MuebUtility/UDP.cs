@@ -48,44 +48,6 @@ namespace matrix4MuebUtility
         }
 
         /*
-         * Checks if a number can be a valid IP port number.
-         */
-        public static Boolean CheckPortNumberValidity(String portNumberToCheck)
-        {
-            Int32 PortNumber;
-
-            if (portNumberToCheck == null)
-            {
-                throw new NullReferenceException();                
-            }
-            else {
-                //if port number is not too long
-                if (portNumberToCheck.Length < 6)
-                {
-                    if (Int32.TryParse(portNumberToCheck, out PortNumber))
-                    {
-                        if (PortNumber < 0 || PortNumber > 65535)
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        /*
          * Creates an IPEndPoint from a given string containing the endpoint's address           
          */
         public static IPEndPoint CreateIPEndPointFromString(String endPointIPAddress)
@@ -96,13 +58,9 @@ namespace matrix4MuebUtility
             }
             else
             {
-                string[] endPointAddressParts = endPointIPAddress.Split(':');
+                IPAddress iPAddress = IPAddress.Parse(endPointIPAddress);
 
-                //getting the IP address
-                IPAddress iPAddress = IPAddress.Parse(endPointAddressParts[0]);
-
-                //getting the port number
-                Int32 portNumber = Int32.Parse(endPointAddressParts[1]);
+                Int32 portNumber = 2000;
 
                 return new IPEndPoint(iPAddress, portNumber);
             }
