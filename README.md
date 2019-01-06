@@ -10,3 +10,5 @@ udpTest <MUEB IP-címe>
 Az IP-címet a következő formátumban kell megadni: IP-cím:port_szám
 
 (Hibás formátum/érvénytelen portszám esetén nem indul!)
+
+A használható parancsokat a --help kapcsolóval tudjuk kilistáztatni a programmal.
