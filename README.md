@@ -4,7 +4,7 @@ Mátrix 4 MUEB tesztelő program.
 Parancssorból indítható alkalmazás. 
 
 Használata a következőképpen történik:
-udpTest <MUEB IP-címe>
+matrix4MuebUtility <MUEB IP-címe>
 
 
 Az IP-címet a következő formátumban kell megadni: IP-cím:port_szám
