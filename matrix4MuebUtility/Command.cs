@@ -2,6 +2,7 @@
 
 namespace matrix4MuebUtility
 {
+    
     public class Command 
     {
         /*
@@ -11,19 +12,19 @@ namespace matrix4MuebUtility
             Third:  help to command
             Forth:  does the command get reply?
         */
-        public static Tuple<string, byte, string, Boolean>[] commands= {
-            Tuple.Create<string, byte, string, Boolean>("12V-off-left", 0, "12V kikapcsolasa a bal oldali tablan", false),
-            Tuple.Create<string, byte, string, Boolean>("12V-off-right", 1, "12V kikapcsolasa a jobb oldali tablan", false),
-            Tuple.Create<string, byte, string, Boolean>("reset-left-panel", 2, "bal oldali panel ujrainditasa", false),
-            Tuple.Create<string, byte, string, Boolean>("reset-right-panel", 3, "jobb oldali panel ujrainditasa", false),
-            Tuple.Create<string, byte, string, Boolean>("reboot", 4, "MUEB ujrainditasa", false),
-            Tuple.Create<string, byte, string, Boolean>("get-status", 5, "statusz lekerdezese", true),
-            Tuple.Create<string, byte, string, Boolean>("get-mac", 7, "MAC-cim lekerdezese", true),
-            Tuple.Create<string, byte, string, Boolean>("use-internal-animation", 10, "belso animacio hasznalata", false),
-            Tuple.Create<string, byte, string, Boolean>("use-external-animation", 20, "kulso animacio hasznalata", false),
-            Tuple.Create<string, byte, string, Boolean>("blank", 30, "tablak elsotetitese", false),
-            Tuple.Create<string, byte, string, Boolean>("delete-anim-network-buffer", 6, "halozati buffer torlese", false),
-            Tuple.Create<string, byte, string, Boolean>("ping", 0x40, "MUEB fociklus-idejenek meghatarozasa", true)
+        public static Tuple<string, int, string, Boolean>[] commands= {
+            Tuple.Create("12V-off-left", 0, "12V kikapcsolasa a bal oldali tablan", false),
+            Tuple.Create("12V-off-right", 1, "12V kikapcsolasa a jobb oldali tablan", false),
+            Tuple.Create("reset-left-panel", 2, "bal oldali panel ujrainditasa", false),
+            Tuple.Create("reset-right-panel", 3, "jobb oldali panel ujrainditasa", false),
+            Tuple.Create("reboot", 4, "MUEB ujrainditasa", false),
+            Tuple.Create("get-status", 5, "statusz lekerdezese", true),
+            Tuple.Create("get-mac", 7, "MAC-cim lekerdezese", true),
+            Tuple.Create("use-internal-animation", 10, "belso animacio hasznalata", false),
+            Tuple.Create("use-external-animation", 20, "kulso animacio hasznalata", false),
+            Tuple.Create("blank", 30, "tablak elsotetitese", false),
+            Tuple.Create("delete-anim-network-buffer", 6, "halozati buffer torlese", false),
+            Tuple.Create("ping", 0x40, "MUEB fociklus-idejenek meghatarozasa", true)
         };
 
         /* 
@@ -37,7 +38,7 @@ namespace matrix4MuebUtility
             {
                 if (commands[i].Item1.Equals(commandToCast))
                 {
-                    commandCode = commands[i].Item2;
+                    commandCode =(byte)(commands[i].Item2);
                 }
             }           
 

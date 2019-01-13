@@ -68,7 +68,6 @@ namespace matrix4MuebUtility
                                         stopWatch.Stop();
                                         millisecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000;
 
-
                                         Console.WriteLine("Erkezett adat!");
                                         Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
                                         Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", millisecondsElapsed) + " ms");
