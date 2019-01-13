@@ -14,7 +14,6 @@ namespace matrix4MuebUtility
             UdpClient udpClient = new UdpClient();
             byte[] udpDataToSend= new byte[4];
             Stopwatch stopWatch= new Stopwatch();
-            double nanosecondsElapsed;
             double millisecondsElapsed;
 
             if (args.Length == 0)
@@ -67,14 +66,11 @@ namespace matrix4MuebUtility
                                             receivedDataSize = udpDataReceived.Length;
                                         }
                                         stopWatch.Stop();
-                                        //nanosecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000000000;
-                                        //millisecondsElapsed = stopWatch.ElapsedMilliseconds;
                                         millisecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000;
 
 
                                         Console.WriteLine("Erkezett adat!");
                                         Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                        //Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", nanosecondsElapsed) + " ns");
                                         Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", millisecondsElapsed) + " ms");
 
                                     }

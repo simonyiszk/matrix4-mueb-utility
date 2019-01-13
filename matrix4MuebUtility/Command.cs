@@ -10,7 +10,7 @@ namespace matrix4MuebUtility
             Second: command's value
             Third:  help to command
             Forth:  does the command get reply?
-             */
+        */
         public static Tuple<string, byte, string, Boolean>[] commands= {
             Tuple.Create<string, byte, string, Boolean>("12V-off-left", 0, "12V kikapcsolasa a bal oldali tablan", false),
             Tuple.Create<string, byte, string, Boolean>("12V-off-right", 1, "12V kikapcsolasa a jobb oldali tablan", false),
