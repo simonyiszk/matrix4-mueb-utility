@@ -18,7 +18,7 @@ namespace matrix4MuebUtility
 
             if (args.Length == 0)
             {
-                Console.WriteLine("Nem adtal meg IP-cimet, kerlek probald ujra!");
+                Console.Error.WriteLine("Nem adtal meg IP-cimet, kerlek probald ujra!");
             }
             else {
                 IPEndPoint endPointToSend;
@@ -56,7 +56,7 @@ namespace matrix4MuebUtility
                                         * SocketException kezelese normalisan
                                         */
                                         udpClient.Send(udpDataToSend, 4, endPointToSend);
-                                        Console.WriteLine("Datagram elkuldve!");
+                                        Console.Error.WriteLine("Datagram elkuldve!");
 
                                         stopWatch.Start();
                                         while (receivedDataSize == 0)
@@ -68,28 +68,28 @@ namespace matrix4MuebUtility
                                         stopWatch.Stop();
                                         millisecondsElapsed = ((double)stopWatch.ElapsedTicks / Stopwatch.Frequency) * (double)1000;
 
-                                        Console.WriteLine("Erkezett adat!");
-                                        Console.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
-                                        Console.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", millisecondsElapsed) + " ms");
-
+                                        Console.Error.WriteLine("Erkezett adat!");
+                                        Console.Error.WriteLine("Tartalma: " + Encoding.Default.GetString(udpDataReceived));
+                                        Console.Error.WriteLine("Csomagkuldes ideje: " + string.Format("{0:0.000}", millisecondsElapsed) + " ms");
                                     }
                                     catch (SocketException se)
                                     {
-                                        Console.WriteLine("Nem elerheto socket.");
-                                        Console.WriteLine("SocketErrorCode: "+se.SocketErrorCode);
-                                        Console.WriteLine("ErrorCode: "+se.ErrorCode);
+                                        Console.Error.WriteLine("Nem elerheto socket.");
+                                        Console.Error.WriteLine("SocketErrorCode: " + se.SocketErrorCode);
+                                        Console.Error.WriteLine("ErrorCode: " + se.ErrorCode);
                                     }
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Ervenytelen parancs!");
+                            else {
+                                Console.Error.WriteLine("Ervenytelen parancs!");
                             }
                         }
-                        else Console.WriteLine("Nem adtal meg parancsot!");
+                        else {
+                            Console.Error.WriteLine("Nem adtal meg parancsot!");
+                        }
                     }
                     else {
-                        Console.WriteLine("Ervenytelen IP-cimet adtal meg!");
+                        Console.Error.WriteLine("Ervenytelen IP-cimet adtal meg!");
                     }
                 }                
             }
@@ -98,8 +98,8 @@ namespace matrix4MuebUtility
         /* Prints help for the program */
         public static void PrintHelp()
         {
-            Console.WriteLine("Matrix 4 utility program");
-            Console.WriteLine("Hasznalhato parancsok: ");
+            Console.Error.WriteLine("Matrix 4 utility program");
+            Console.Error.WriteLine("Hasznalhato parancsok: ");
 
             int longestCommand= Command.commands[0].Item1.Length;
             for (int i = 1; i < Command.commands.Length; i++)
