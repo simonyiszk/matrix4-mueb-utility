@@ -5,6 +5,7 @@ Parancssorból indítható alkalmazás.
 
 Használata a következőképpen történik:
 matrix4MuebUtility <MUEB IP-címe>
+
 A port fixen 2000-re van állítva.
 
 A használható parancsokat a --help kapcsolóval tudjuk kilistáztatni a programmal.
