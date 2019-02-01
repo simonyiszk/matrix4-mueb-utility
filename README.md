@@ -17,3 +17,9 @@ Version 15.6.4
 VisualStudio.15.Release/15.6.4+27428.2015
 Microsoft .NET Framework
 Version 4.7.03062
+
+# Fordítás Linux rendszeren
+
+A fordításhosz szükséges az ```mcs``` program, amit Debian rendszerben a ```mono-mcs``` csomagban találunk meg. A fordítása a ```make``` parancs kiadásával történik. A kimeneti fájl a Makefile mellé jön létre.
+
+Természetesen a futtatáshoz szükséges a ```mono``` futtatókörnyezet.
