@@ -25,6 +25,9 @@ namespace matrix4MuebUtility
             Tuple.Create("blank", 30, "tablak elsotetitese", false),
             Tuple.Create("delete-anim-network-buffer", 6, "halozati buffer torlese", false),
             Tuple.Create("ping", 0x40, "MUEB fociklus-idejenek meghatarozasa", true)
+            Tuple.Create("enable-update", 0x50, "Frissites engedelyezese a MUEB-en", false),
+	    Tuple.Create("get-new-fw-checksum", 0x51, "Uj FW checksumjanak lekerese", true),
+	    Tuple.Create("refurbish", 0x60, "Uj FW beegetese")
         };
 
         /* 
