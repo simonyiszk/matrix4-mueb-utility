@@ -58,6 +58,8 @@ namespace matrix4MuebUtility
                                         udpClient.Send(udpDataToSend, 4, endPointToSend);
                                         Console.Error.WriteLine("Datagram elkuldve!");
 
+					if(! Command.IfCommandReplies(args[1]) )
+						System.Environment.Exit(1);
                                         stopWatch.Start();
                                         while (receivedDataSize == 0)
                                         {

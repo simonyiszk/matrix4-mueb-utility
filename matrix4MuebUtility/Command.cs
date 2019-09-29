@@ -48,6 +48,17 @@ namespace matrix4MuebUtility
             return commandCode;
         }
 
+	public static bool IfCommandReplies(string command)
+	{
+	for (int i = 0; i < commands.Length; i++)
+            {
+                if (commands[i].Item1.Equals(command))
+                {
+                    return (bool)commands[i].Item4;
+                }
+            } 
+	return false; //throw System.Exception("hiba"); TODO throw here
+	}
         /* 
          * Checks if a given command is one of the valid commands 
          */
